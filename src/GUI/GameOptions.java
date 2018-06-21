@@ -10,7 +10,9 @@ package GUI;
  * @author Steven
  */
 public class GameOptions extends javax.swing.JFrame {
+
     String user;
+
     /**
      * Creates new form GameOptions
      */
@@ -43,6 +45,11 @@ public class GameOptions extends javax.swing.JFrame {
         });
 
         jButton2.setText("5 x 5");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -72,6 +79,11 @@ public class GameOptions extends javax.swing.JFrame {
         Game3x3Mode game3 = new Game3x3Mode(this.user);
         game3.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Game5x5Mode game5 = new Game5x5Mode(this.user);
+        game5.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
