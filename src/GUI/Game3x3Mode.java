@@ -24,6 +24,7 @@ public class Game3x3Mode extends javax.swing.JFrame {
         this.setTitle(user);
         this.panel = new FormationPanel(3, 3, 3);
         this.panel.setLocation(20, 25);
+        this.panel.setEnabled(true);
         this.getContentPane().add(this.panel);
         initComponents();
     }
@@ -56,6 +57,7 @@ public class Game3x3Mode extends javax.swing.JFrame {
         jButton10 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setText("Enemy zone");
 
@@ -127,6 +129,11 @@ public class Game3x3Mode extends javax.swing.JFrame {
         });
 
         btnSpaceship.setText("SpaceShip");
+        btnSpaceship.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSpaceshipActionPerformed(evt);
+            }
+        });
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
@@ -184,8 +191,12 @@ public class Game3x3Mode extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSpaceshipMotherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSpaceshipMotherActionPerformed
-
+        this.panel.setSpaceship("Mother");
     }//GEN-LAST:event_btnSpaceshipMotherActionPerformed
+
+    private void btnSpaceshipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSpaceshipActionPerformed
+        this.panel.setSpaceship("Support");
+    }//GEN-LAST:event_btnSpaceshipActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

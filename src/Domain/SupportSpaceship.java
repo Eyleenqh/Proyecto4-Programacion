@@ -6,23 +6,24 @@
 package Domain;
 
 import java.awt.Image;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author Eyleen
  */
-public class NaveGuerrera extends Nave {
+public class SupportSpaceship extends Spaceship {
 
     private Image image;
 
-    public NaveGuerrera() {
+    public SupportSpaceship() {
         super();
         this.image = null;
     }
 
-    public NaveGuerrera(Image image, int vida, int x, int y) {
+    public SupportSpaceship(int vida, int x, int y) {
         super(vida, x, y);
-        this.image = image;
+        this.image = new ImageIcon(("src/Assets/support.png")).getImage();
     }
 
     public Image getImage() {
