@@ -5,9 +5,12 @@
  */
 package GUI;
 
+import Domain.Player;
+import Domain.Spaceship;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import GUI.FormationPanel;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,17 +19,23 @@ import GUI.FormationPanel;
 public class Game3x3Mode extends javax.swing.JFrame {
 
     private FormationPanel panel;
+    private BackgroundGame background;
+    private Player player;
 
     /**
      * Creates new form Game3x3Mode
      */
-    public Game3x3Mode(String user) {
-        this.setTitle(user);
-        this.panel = new FormationPanel(3, 3, 3);
+    public Game3x3Mode(Player player) {
+        this.player = player;
+        this.setTitle(this.player.getName());
+        this.background = new BackgroundGame();
+        this.background.setLocation(0, 0);
+        this.panel = new FormationPanel(3, 3, 3, this.player);
         this.panel.setLocation(20, 25);
         this.panel.setEnabled(true);
-        this.getContentPane().add(this.panel);
         initComponents();
+        this.getContentPane().add(this.panel);
+        this.getContentPane().add(this.background);
     }
 
     /**
@@ -56,9 +65,12 @@ public class Game3x3Mode extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jButton10 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1090, 666));
         setResizable(false);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Enemy zone");
 
         enemyZonePanel.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 0, 153)));
@@ -128,7 +140,7 @@ public class Game3x3Mode extends javax.swing.JFrame {
             }
         });
 
-        btnSpaceship.setText("SpaceShip");
+        btnSpaceship.setText("Support spaceship");
         btnSpaceship.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSpaceshipActionPerformed(evt);
@@ -149,22 +161,21 @@ public class Game3x3Mode extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(636, 636, 636)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(139, 139, 139))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSpaceshipMother, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSpaceship, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(enemyZonePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton10)))
-                        .addGap(30, 30, 30))))
+                    .addComponent(btnSpaceshipMother, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSpaceship, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(enemyZonePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton10)))
+                .addGap(30, 30, 30))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(120, 120, 120))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,7 +189,7 @@ public class Game3x3Mode extends javax.swing.JFrame {
                         .addComponent(btnSpaceshipMother)
                         .addGap(18, 18, 18)
                         .addComponent(btnSpaceship)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)

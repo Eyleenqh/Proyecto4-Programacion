@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import Domain.Player;
 import GUI.FormationPanel;
 
 /**
@@ -14,13 +15,15 @@ import GUI.FormationPanel;
 public class Game5x5Mode extends javax.swing.JFrame {
 
     private FormationPanel panel;
+    private Player player;
 
     /**
      * Creates new form Game5x5Mode
      */
-    public Game5x5Mode(String user) {
-        this.setTitle(user);
-        this.panel = new FormationPanel(5, 5, 5);
+    public Game5x5Mode(Player player) {
+        this.player = player;
+        this.setTitle(this.player.getName());
+        this.panel = new FormationPanel(5, 5, 5, this.player);
         this.panel.setLocation(20, 25);
         this.getContentPane().add(this.panel);
         initComponents();
@@ -69,8 +72,9 @@ public class Game5x5Mode extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Enemy zone");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 0, 102)));
@@ -232,7 +236,12 @@ public class Game5x5Mode extends javax.swing.JFrame {
             }
         });
 
-        btnSpaceship.setText("SpaceShip");
+        btnSpaceship.setText("Support spaceship");
+        btnSpaceship.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSpaceshipActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Send");
 
@@ -251,9 +260,9 @@ public class Game5x5Mode extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnSpaceshipMother, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnSpaceship, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(btnSpaceshipMother, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                                    .addComponent(btnSpaceship, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(29, 29, 29)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
@@ -283,7 +292,7 @@ public class Game5x5Mode extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
@@ -294,8 +303,12 @@ public class Game5x5Mode extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSpaceshipMotherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSpaceshipMotherActionPerformed
-
+        this.panel.setSpaceship("Mother");
     }//GEN-LAST:event_btnSpaceshipMotherActionPerformed
+
+    private void btnSpaceshipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSpaceshipActionPerformed
+        this.panel.setSpaceship("Support");
+    }//GEN-LAST:event_btnSpaceshipActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

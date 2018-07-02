@@ -2,7 +2,7 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -29,9 +29,9 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="btnSpaceshipMother" min="-2" pref="154" max="-2" attributes="0"/>
-                                  <Component id="btnSpaceship" min="-2" pref="114" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="btnSpaceshipMother" pref="154" max="32767" attributes="0"/>
+                                  <Component id="btnSpaceship" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                               <Component id="jPanel2" min="-2" pref="317" max="-2" attributes="0"/>
@@ -74,7 +74,7 @@
               </Group>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="260" max="-2" attributes="0"/>
-              <EmptySpace pref="31" max="32767" attributes="0"/>
+              <EmptySpace pref="25" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -87,6 +87,9 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="18" style="0"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Enemy zone"/>
       </Properties>
     </Component>
@@ -355,8 +358,11 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnSpaceship">
       <Properties>
-        <Property name="text" type="java.lang.String" value="SpaceShip"/>
+        <Property name="text" type="java.lang.String" value="Support spaceship"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSpaceshipActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField1">
     </Component>

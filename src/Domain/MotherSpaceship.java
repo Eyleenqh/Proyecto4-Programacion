@@ -23,8 +23,8 @@ public class MotherSpaceship extends Spaceship {
         this.image = null;
     }
 
-    public MotherSpaceship(int vida, int x, int y) {
-        super(vida, x, y);
+    public MotherSpaceship(int vida, int x, int y, String type) {
+        super(vida, x, y, type);
         this.ataque = ataque;
         this.image = new ImageIcon(("src/Assets/mother.png")).getImage();
     }

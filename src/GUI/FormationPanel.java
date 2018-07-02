@@ -6,14 +6,13 @@
 package GUI;
 
 import Domain.MotherSpaceship;
-import Domain.Spaceship;
+import Domain.Player;
 import Domain.SupportSpaceship;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
 
 /**
  *
@@ -27,10 +26,11 @@ public class FormationPanel extends JLayeredPane implements MouseListener {
     private int supportQuantity;
     private int motherQuantity;
     private int modeRecSize;
-    Spaceship mother;
-    Spaceship support;
+    private Player player;
 
-    public FormationPanel(int r, int c, int size) {
+    public FormationPanel(int r, int c, int size, Player player) {
+        this.player = player;
+        
         if (size == 3) {
             this.modeRecSize = 200;
             this.supportQuantity = 2;
@@ -59,7 +59,7 @@ public class FormationPanel extends JLayeredPane implements MouseListener {
 
     @Override
     public void paint(Graphics g) {
-        g.setColor(Color.RED);
+        g.setColor(Color.WHITE);
         int x = 0;
         int y = 0;
         for (int i = 0; i < this.positionMatrix.length; i++) {
@@ -72,17 +72,9 @@ public class FormationPanel extends JLayeredPane implements MouseListener {
 
     @Override
     protected void paintComponent(Graphics g) {
-        for (int i = 0; i < this.positionMatrix.length; i++) {
-            for (int j = 0; j < this.positionMatrix.length; j++) {
-                if (this.positionMatrix[j][i] == 7) {
-                    g.drawImage(this.mother.getImage(), (this.mother.getX() / this.modeRecSize) * this.modeRecSize, (this.mother.getY() / this.modeRecSize) * this.modeRecSize,
-                            this.modeRecSize, this.modeRecSize, this);
-                }
-                if(this.positionMatrix[j][i] == 9){
-                    g.drawImage(this.support.getImage(), (this.support.getX() / this.modeRecSize) * this.modeRecSize, (this.support.getY() / this.modeRecSize) * this.modeRecSize,
-                            this.modeRecSize, this.modeRecSize, this);
-                }
-            }
+        for(int i = 0; i<this.player.getSpaceships().size(); i++){
+            g.drawImage(this.player.getSpaceships().get(i).getImage(), this.player.getSpaceships().get(i).getX()*this.modeRecSize, 
+                    this.player.getSpaceships().get(i).getY()*this.modeRecSize, this.modeRecSize, this.modeRecSize, this);
         }
     }
 
@@ -99,22 +91,20 @@ public class FormationPanel extends JLayeredPane implements MouseListener {
             c = e.getX() / 120;
             r = e.getY() / 120;
         }
+        
         if (this.spaceship.equals("Mother")) {
             if (this.motherQuantity != 0) {
-                this.positionMatrix[r][c] = 7;
+                this.player.getSpaceships().add(new MotherSpaceship(2, c, r, this.spaceship));
                 this.motherQuantity--;
-                this.mother = new MotherSpaceship(2, x, y);
-                repaint();
             }
         }
         if (this.spaceship.equals("Support")){
             if(this.supportQuantity != 0){
-                this.positionMatrix[r][c] = 9;
+                this.player.getSpaceships().add(new SupportSpaceship(1, c, r, this.spaceship));
                 this.supportQuantity--;
-                this.support = new SupportSpaceship(1, x, y);//se debe crear en un arraylist para que no se borre
-                repaint();
             }
         }
+        repaint();
     }
 
     @Override

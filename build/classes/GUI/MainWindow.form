@@ -15,8 +15,23 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="topMenu">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Top scores"/>
+            <Property name="text" type="java.lang.String" value="Options"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="menuInstructions">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Instructions"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuInstructionsActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuTop">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Top Scores"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>

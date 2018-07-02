@@ -17,17 +17,20 @@ public class Spaceship {
     private int x;
     private int y;
     private Image image;
+    private String type;
 
     public Spaceship() {
         this.vida = 0;
         this.x = 0;
         this.y = 0;
+        this.type = "";
     }
 
-    public Spaceship(int vida, int x, int y) {
+    public Spaceship(int vida, int x, int y, String type) {
         this.vida = vida;
         this.x = x;
         this.y = y;
+        this.type = type;
     }
 
     public int getVida() {
@@ -60,5 +63,13 @@ public class Spaceship {
 
     public void setImage(Image image) {
         this.image = image;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

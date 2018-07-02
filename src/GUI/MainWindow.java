@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import Domain.Player;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,6 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class MainWindow extends javax.swing.JFrame {
     private BackgroundPanel background;
+    private Player player;
     /**
      * Creates new form MainWindow
      */
@@ -37,6 +39,8 @@ public class MainWindow extends javax.swing.JFrame {
         txtUser = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         topMenu = new javax.swing.JMenu();
+        menuInstructions = new javax.swing.JMenuItem();
+        menuTop = new javax.swing.JMenuItem();
 
         jMenu3.setText("jMenu3");
 
@@ -54,7 +58,19 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Username:");
 
-        topMenu.setText("Top scores");
+        topMenu.setText("Options");
+
+        menuInstructions.setText("Instructions");
+        menuInstructions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuInstructionsActionPerformed(evt);
+            }
+        });
+        topMenu.add(menuInstructions);
+
+        menuTop.setText("Top Scores");
+        topMenu.add(menuTop);
+
         jMenuBar1.add(topMenu);
 
         setJMenuBar(jMenuBar1);
@@ -90,21 +106,27 @@ public class MainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bntStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntStartActionPerformed
-        String user = "";
         if (this.txtUser.getText().isEmpty() || (this.txtUser.getText().length() <= 2)) {
             JOptionPane.showMessageDialog(this, "Please insert a valid Username.");
         } else {
-            user = this.txtUser.getText();
-            GameOptions go = new GameOptions(user);
+            player = new Player(this.txtUser.getText());
+            GameOptions go = new GameOptions(this.player);
             go.setVisible(true);
         }
     }//GEN-LAST:event_bntStartActionPerformed
+
+    private void menuInstructionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuInstructionsActionPerformed
+        InstructionsWindow iw = new InstructionsWindow();
+        iw.setVisible(true);
+    }//GEN-LAST:event_menuInstructionsActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntStart;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem menuInstructions;
+    private javax.swing.JMenuItem menuTop;
     private javax.swing.JMenu topMenu;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables

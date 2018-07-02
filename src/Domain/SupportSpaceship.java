@@ -21,8 +21,8 @@ public class SupportSpaceship extends Spaceship {
         this.image = null;
     }
 
-    public SupportSpaceship(int vida, int x, int y) {
-        super(vida, x, y);
+    public SupportSpaceship(int vida, int x, int y, String type) {
+        super(vida, x, y, type);
         this.image = new ImageIcon(("src/Assets/support.png")).getImage();
     }
 

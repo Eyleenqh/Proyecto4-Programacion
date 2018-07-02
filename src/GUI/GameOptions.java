@@ -5,19 +5,21 @@
  */
 package GUI;
 
+import Domain.Player;
+
 /**
  *
  * @author Steven
  */
 public class GameOptions extends javax.swing.JFrame {
 
-    String user;
+    private Player player;
 
     /**
      * Creates new form GameOptions
      */
-    public GameOptions(String user) {
-        this.user = user;
+    public GameOptions(Player player) {
+        this.player = player;
         initComponents();
     }
 
@@ -33,7 +35,7 @@ public class GameOptions extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Game options");
         setResizable(false);
 
@@ -76,12 +78,12 @@ public class GameOptions extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Game3x3Mode game3 = new Game3x3Mode(this.user);
+        Game3x3Mode game3 = new Game3x3Mode(this.player);
         game3.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Game5x5Mode game5 = new Game5x5Mode(this.user);
+        Game5x5Mode game5 = new Game5x5Mode(this.player);
         game5.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 

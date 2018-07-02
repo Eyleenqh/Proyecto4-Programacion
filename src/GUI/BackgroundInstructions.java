@@ -14,19 +14,18 @@ import javax.swing.JPanel;
  *
  * @author Steven
  */
-public class BackgroundPanel extends JPanel{
-    private Image image;
+public class BackgroundInstructions extends JPanel{
+    private Image background;
 
-    public BackgroundPanel() {
-        this.image = new ImageIcon(("src/Assets/back.jpg")).getImage();
+    public BackgroundInstructions() {
+        this.background = new ImageIcon(("src/Assets/instructionsBackground.JPG")).getImage();
         this.setLayout(null);
-        this.setSize(800, 500);
+        this.setSize(1360, 720);
         this.setVisible(true);
     }
     
     @Override
     public void paint(Graphics g) {
-        g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+        g.drawImage(this.background, 0, 0, getWidth(), getHeight(), this);
     }
-    
 }
