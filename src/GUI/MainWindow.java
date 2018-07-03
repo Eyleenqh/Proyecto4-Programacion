@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class MainWindow extends javax.swing.JFrame {
     private BackgroundPanel background;
-    private Player player;
+    private String player;
     /**
      * Creates new form MainWindow
      */
@@ -109,7 +109,7 @@ public class MainWindow extends javax.swing.JFrame {
         if (this.txtUser.getText().isEmpty() || (this.txtUser.getText().length() <= 2)) {
             JOptionPane.showMessageDialog(this, "Please insert a valid Username.");
         } else {
-            player = new Player(this.txtUser.getText());
+            this.player = this.txtUser.getText();
             GameOptions go = new GameOptions(this.player);
             go.setVisible(true);
         }

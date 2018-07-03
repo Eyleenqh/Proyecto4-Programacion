@@ -3,9 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Steven/Desktop/SpaceshipWarVargasQuirosSemestreIAnno2018/src/GUI/Game3x3Mode.java</file>
-            <file>file:/C:/Users/Steven/Desktop/SpaceshipWarVargasQuirosSemestreIAnno2018/src/GUI/FormationPanel.java</file>
-            <file>file:/C:/Users/Steven/Desktop/SpaceshipWarVargasQuirosSemestreIAnno2018/src/GUI/Game5x5Mode.java</file>
+            <file>file:/C:/Users/Eyleen/Documents/NetBeansProjects/SpaceshipWarVargasQuirosSemestreIAnno2018-2/src/Socket/ServerThread.java</file>
+            <file>file:/C:/Users/Eyleen/Documents/NetBeansProjects/SpaceshipWarVargasQuirosSemestreIAnno2018-2/src/Socket/Client.java</file>
+            <file>file:/C:/Users/Eyleen/Documents/NetBeansProjects/SpaceshipWarVargasQuirosSemestreIAnno2018-2/src/GUI/Game5x5Mode.java</file>
+            <file>file:/C:/Users/Eyleen/Documents/NetBeansProjects/SpaceshipWarVargasQuirosSemestreIAnno2018-2/src/GUI/Game3x3Mode.java</file>
+            <file>file:/C:/Users/Eyleen/Documents/NetBeansProjects/SpaceshipWarVargasQuirosSemestreIAnno2018-2/src/GUI/GameOptions.java</file>
+            <file>file:/C:/Users/Eyleen/Documents/NetBeansProjects/SpaceshipWarVargasQuirosSemestreIAnno2018-2/src/GUI/MainWindow.java</file>
+            <file>file:/C:/Users/Eyleen/Documents/NetBeansProjects/SpaceshipWarVargasQuirosSemestreIAnno2018-2/src/Socket/Server.java</file>
+            <file>file:/C:/Users/Eyleen/Documents/NetBeansProjects/SpaceshipWarVargasQuirosSemestreIAnno2018-2/src/Data/XMLReport.java</file>
+            <file>file:/C:/Users/Eyleen/Documents/NetBeansProjects/SpaceshipWarVargasQuirosSemestreIAnno2018-2/src/Data/XMLAttack.java</file>
         </group>
     </open-files>
 </project-private>

@@ -5,12 +5,21 @@
  */
 package GUI;
 
+import Data.XMLReport;
+import Data.XMLTransmitterManager;
 import Domain.Player;
 import Domain.Spaceship;
+import Domain.Transmitter;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import GUI.FormationPanel;
+import Socket.Client;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import org.jdom.JDOMException;
 
 /**
  *
@@ -21,12 +30,15 @@ public class Game3x3Mode extends javax.swing.JFrame {
     private FormationPanel panel;
     private BackgroundGame background;
     private Player player;
+    private Client client;
+    private XMLTransmitterManager xml;
+    private XMLReport xmlR;
 
     /**
      * Creates new form Game3x3Mode
      */
-    public Game3x3Mode(Player player) {
-        this.player = player;
+    public Game3x3Mode(String player) {
+        this.player = new Player(player);
         this.setTitle(this.player.getName());
         this.background = new BackgroundGame();
         this.background.setLocation(0, 0);
@@ -36,6 +48,9 @@ public class Game3x3Mode extends javax.swing.JFrame {
         initComponents();
         this.getContentPane().add(this.panel);
         this.getContentPane().add(this.background);
+
+        client = new Client(this);
+        client.start();
     }
 
     /**
@@ -49,24 +64,23 @@ public class Game3x3Mode extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         enemyZonePanel = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        btnA1 = new javax.swing.JButton();
+        btnA2 = new javax.swing.JButton();
+        btnA3 = new javax.swing.JButton();
+        btnB1 = new javax.swing.JButton();
+        btnB2 = new javax.swing.JButton();
+        btnB3 = new javax.swing.JButton();
+        btnC1 = new javax.swing.JButton();
+        btnC2 = new javax.swing.JButton();
+        btnC3 = new javax.swing.JButton();
         btnSpaceshipMother = new javax.swing.JButton();
         btnSpaceship = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        textChat = new javax.swing.JTextArea();
         jTextField1 = new javax.swing.JTextField();
         jButton10 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1090, 666));
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -75,23 +89,68 @@ public class Game3x3Mode extends javax.swing.JFrame {
 
         enemyZonePanel.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 0, 153)));
 
-        jButton1.setText("A1");
+        btnA1.setText("A1");
+        btnA1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnA1ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("A2");
+        btnA2.setText("A2");
+        btnA2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnA2ActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("A3");
+        btnA3.setText("A3");
+        btnA3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnA3ActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("B1");
+        btnB1.setText("B1");
+        btnB1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnB1ActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("B2");
+        btnB2.setText("B2");
+        btnB2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnB2ActionPerformed(evt);
+            }
+        });
 
-        jButton6.setText("B3");
+        btnB3.setText("B3");
+        btnB3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnB3ActionPerformed(evt);
+            }
+        });
 
-        jButton7.setText("C1");
+        btnC1.setText("C1");
+        btnC1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnC1ActionPerformed(evt);
+            }
+        });
 
-        jButton8.setText("C2");
+        btnC2.setText("C2");
+        btnC2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnC2ActionPerformed(evt);
+            }
+        });
 
-        jButton9.setText("C3");
+        btnC3.setText("C3");
+        btnC3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnC3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout enemyZonePanelLayout = new javax.swing.GroupLayout(enemyZonePanel);
         enemyZonePanel.setLayout(enemyZonePanelLayout);
@@ -99,38 +158,38 @@ public class Game3x3Mode extends javax.swing.JFrame {
             enemyZonePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(enemyZonePanelLayout.createSequentialGroup()
                 .addGroup(enemyZonePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnA2, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                    .addComponent(btnA1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnA3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(enemyZonePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnB1, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                    .addComponent(btnB2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnB3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(enemyZonePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(btnC1, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                    .addComponent(btnC2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnC3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         enemyZonePanelLayout.setVerticalGroup(
             enemyZonePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(enemyZonePanelLayout.createSequentialGroup()
                 .addGroup(enemyZonePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnB1, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+                    .addComponent(btnA1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnC1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(enemyZonePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnC2, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+                    .addComponent(btnA2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnB2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(11, 11, 11)
                 .addGroup(enemyZonePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnA3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(enemyZonePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(btnB3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnC3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         btnSpaceshipMother.setText("Mother spaceship");
@@ -147,12 +206,17 @@ public class Game3x3Mode extends javax.swing.JFrame {
             }
         });
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        textChat.setEditable(false);
+        textChat.setColumns(20);
+        textChat.setRows(5);
+        jScrollPane1.setViewportView(textChat);
 
         jButton10.setText("send");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -209,24 +273,160 @@ public class Game3x3Mode extends javax.swing.JFrame {
         this.panel.setSpaceship("Support");
     }//GEN-LAST:event_btnSpaceshipActionPerformed
 
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        if (!this.jTextField1.getText().equalsIgnoreCase("")) {
+            // this.textChat.setText(this.textChat.getText() + "\n" + this.player.getName() + ": " + this.jTextField1.getText());
 
+            this.jTextField1.setText("");
+            Transmitter transmitter = new Transmitter(this.player.getName(), this.jTextField1.getText());
+            try {
+                this.client.createMessage(transmitter);
+            } catch (IOException ex) {
+                Logger.getLogger(Game3x3Mode.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void btnA1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnA1ActionPerformed
+        try {
+            this.client.createAttack(0, 0);
+        } catch (IOException ex) {
+            Logger.getLogger(Game3x3Mode.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnA1ActionPerformed
+
+    private void btnB1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnB1ActionPerformed
+        try {
+            this.client.createAttack(1, 0);
+        } catch (IOException ex) {
+            Logger.getLogger(Game3x3Mode.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnB1ActionPerformed
+
+    private void btnA3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnA3ActionPerformed
+        try {
+            this.client.createAttack(0, 2);
+        } catch (IOException ex) {
+            Logger.getLogger(Game3x3Mode.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnA3ActionPerformed
+
+    private void btnC1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnC1ActionPerformed
+        try {
+            this.client.createAttack(2, 0);
+        } catch (IOException ex) {
+            Logger.getLogger(Game3x3Mode.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnC1ActionPerformed
+
+    private void btnA2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnA2ActionPerformed
+        try {
+            this.client.createAttack(0, 1);
+        } catch (IOException ex) {
+            Logger.getLogger(Game3x3Mode.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnA2ActionPerformed
+
+    private void btnC2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnC2ActionPerformed
+        try {
+            this.client.createAttack(2, 1);
+        } catch (IOException ex) {
+            Logger.getLogger(Game3x3Mode.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnC2ActionPerformed
+
+    private void btnB3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnB3ActionPerformed
+        try {
+            this.client.createAttack(1, 2);
+        } catch (IOException ex) {
+            Logger.getLogger(Game3x3Mode.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnB3ActionPerformed
+
+    private void btnC3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnC3ActionPerformed
+        try {
+            this.client.createAttack(2, 2);
+        } catch (IOException ex) {
+            Logger.getLogger(Game3x3Mode.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnC3ActionPerformed
+
+    private void btnB2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnB2ActionPerformed
+        try {
+            this.client.createAttack(1, 1);
+        } catch (IOException ex) {
+            Logger.getLogger(Game3x3Mode.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnB2ActionPerformed
+
+    /* public void setMessage(String message) {
+        String chat = this.textChat.getText() + "\n" + message;
+        this.textChat.setText(chat);
+    }*/
+    public void setChat() throws JDOMException, IOException {
+        this.xml = new XMLTransmitterManager("./chatSpaceshipWar.xml");
+        String chat = "";
+        Transmitter[] t = xml.getAllTransmitter();
+        for (int i = 0; i < t.length; i++) {
+            chat = chat + "\n" + t[i].toString();
+        }
+        this.textChat.setText(chat);
+    }
+
+    public boolean attack(int x, int y) throws IOException {
+        for (int i = 0; i < this.player.getSpaceships().size(); i++) {
+            if (this.player.getSpaceships().get(i).getX() == x && this.player.getSpaceships().get(i).getY() == y) {
+                if (this.player.getSpaceships().get(i).getType().equalsIgnoreCase("Mother")) {
+                    this.player.getSpaceships().get(i).setVida(this.player.getSpaceships().get(i).getVida() - 1);
+                    if (this.player.getSpaceships().get(i).getVida() == 0) {
+                        this.client.createReport("You hit---End");
+                        end();
+                        return true;
+                    } else {
+                        this.client.createReport("You hit---Playing");
+                        return true;
+                    }
+                } else {
+                    this.client.createReport("You hit---Playing");
+                    return true;
+                }
+            } 
+        }
+        this.client.createReport("You did not hit---Playing");
+        return false;
+    }
+
+    public void end() {
+        JOptionPane.showMessageDialog(this, "You Lose!");
+    }
+
+    public void setReportAttack() throws JDOMException, IOException {
+        this.xmlR = new XMLReport("./reportSpaceshipWar.xml");
+        String report[] = this.xmlR.getReport().split("---");
+        JOptionPane.showMessageDialog(this, report[0]);
+
+        if (report[1].equalsIgnoreCase("End")) {
+            JOptionPane.showMessageDialog(this, "You Win");
+            //bloquear lo que se necesita para jugar
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnA1;
+    private javax.swing.JButton btnA2;
+    private javax.swing.JButton btnA3;
+    private javax.swing.JButton btnB1;
+    private javax.swing.JButton btnB2;
+    private javax.swing.JButton btnB3;
+    private javax.swing.JButton btnC1;
+    private javax.swing.JButton btnC2;
+    private javax.swing.JButton btnC3;
     private javax.swing.JButton btnSpaceship;
     private javax.swing.JButton btnSpaceshipMother;
     private javax.swing.JPanel enemyZonePanel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextArea textChat;
     // End of variables declaration//GEN-END:variables
 }

@@ -20,8 +20,8 @@ public class Game5x5Mode extends javax.swing.JFrame {
     /**
      * Creates new form Game5x5Mode
      */
-    public Game5x5Mode(Player player) {
-        this.player = player;
+    public Game5x5Mode(String player) {
+        this.player = new Player(player);
         this.setTitle(this.player.getName());
         this.panel = new FormationPanel(5, 5, 5, this.player);
         this.panel.setLocation(20, 25);

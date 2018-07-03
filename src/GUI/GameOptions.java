@@ -6,6 +6,12 @@
 package GUI;
 
 import Domain.Player;
+import Socket.Server;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.jdom.JDOMException;
 
 /**
  *
@@ -13,12 +19,15 @@ import Domain.Player;
  */
 public class GameOptions extends javax.swing.JFrame {
 
-    private Player player;
+    private Server server;
+    private String player;
+    private Game3x3Mode game3;
+    private Game5x5Mode game5;
 
     /**
      * Creates new form GameOptions
      */
-    public GameOptions(Player player) {
+    public GameOptions(String player) {
         this.player = player;
         initComponents();
     }
@@ -78,15 +87,14 @@ public class GameOptions extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Game3x3Mode game3 = new Game3x3Mode(this.player);
+        this.game3 = new Game3x3Mode(this.player);
         game3.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Game5x5Mode game5 = new Game5x5Mode(this.player);
+        this.game5 = new Game5x5Mode(this.player);
         game5.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
